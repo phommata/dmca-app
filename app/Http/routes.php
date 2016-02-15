@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * The Home Page
+ */
+
+Route::get('/', 'PagesController@home');
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +28,10 @@ Route::get('/', function () {
 |
 */
 
-
+/**
+ * Authentication
+ */
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
 });
