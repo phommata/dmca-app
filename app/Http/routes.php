@@ -17,6 +17,11 @@
 
 Route::get('/', 'PagesController@home');
 
+/**
+ * Notices
+ */
+Route::resource('notices', 'NoticesController');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -31,7 +36,7 @@ Route::get('/', 'PagesController@home');
 /**
  * Authentication
  */
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => ['web']], function () {
     Route::auth();
 
 });

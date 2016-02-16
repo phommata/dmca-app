@@ -11,8 +11,4 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectRootManager" version="2" />
-  <component name="VagrantProjectSettings">
-    <option name="instanceFolder" value="$PROJECT_DIR$/../../virtual_machines" />
-    <option name="provider" value="" />
-  </component>
 </project>
