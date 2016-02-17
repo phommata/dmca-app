@@ -38,7 +38,7 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Notices
      */
-    Route::resource('notices/create/confirm', 'NoticesController@confirm');
+    Route::get('notices/create/confirm', 'NoticesController@confirm');
     Route::resource('notices', 'NoticesController');
 
 
