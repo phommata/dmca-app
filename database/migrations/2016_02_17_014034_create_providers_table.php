@@ -14,7 +14,8 @@ class CreateProvidersTable extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('name')->unique();
+            $table->string('copyright_email')->unique();
         });
     }
 
