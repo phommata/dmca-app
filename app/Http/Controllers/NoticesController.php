@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PrepareNoticeRequest;
+use App\Notice;
 
 class NoticesController extends Controller
 {
@@ -28,7 +29,7 @@ class NoticesController extends Controller
      */
     public function index()
     {
-        return 'all notices';
+        return Auth::user()->notices;
     }
 
     /**
@@ -77,10 +78,22 @@ class NoticesController extends Controller
         return view()->file(app_path('Http/Templates/dmca.blade.php'), $data);
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        // Form data is flashed. Get with session()->get('dmca')
+        // Template is in request. Request::input('template')
+        // So build up a Notice object (create table too)
+        // persist it with this data.
+        // And then fire off the email.
+
         $data = session()->get('dmca');
 
-        return \Request::input('template');
+        $notice = Notice::open($data)->useTemplate($request->input('template'));
+
+        Auth::user()->notices()->save($notice);
+//        Auth::user()->notices()->create(array); // Works the same
+
+//        return Notice::first();
+        return redirect('notices');
     }
 }
