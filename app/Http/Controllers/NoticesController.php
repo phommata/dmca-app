@@ -46,6 +46,9 @@ class NoticesController extends Controller
 
     public function confirm(PrepareNoticeRequest $request)
     {
-        return $request->all();
+        $data = $request->all() + [
+            'name' => \Auth::user()->name
+        ];
+        $template = view()->file(app_path('Http/Templates/dmca.blade.php'));
     }
 }
