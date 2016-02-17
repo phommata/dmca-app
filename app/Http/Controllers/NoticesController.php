@@ -78,22 +78,40 @@ class NoticesController extends Controller
         return view()->file(app_path('Http/Templates/dmca.blade.php'), $data);
     }
 
+    /**
+     * Store a new DMCA notice.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(Request $request)
     {
         // Form data is flashed. Get with session()->get('dmca')
         // Template is in request. Request::input('template')
         // So build up a Notice object (create table too)
         // persist it with this data.
+
         // And then fire off the email.
 
+
+        $this->createNotice($request);
+//        Auth::user()->notices()->create(array); // Works the same
+
+//        return Notice::first();
+        return redirect('notices');
+    }
+
+    /**
+     * Create and persist a new DMCA notice.
+     *
+     * @param Request $request
+     */
+    protected function createNotice(Request $request)
+    {
         $data = session()->get('dmca');
 
         $notice = Notice::open($data)->useTemplate($request->input('template'));
 
         Auth::user()->notices()->save($notice);
-//        Auth::user()->notices()->create(array); // Works the same
-
-//        return Notice::first();
-        return redirect('notices');
     }
 }
