@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PrepareNoticeRequest;
 
 class NoticesController extends Controller
 {
@@ -39,5 +40,10 @@ class NoticesController extends Controller
 
         // load a view to create a new notice
         return view('notices.create');
+    }
+
+    public function confirm(PrepareNoticeRequest $request)
+    {
+
     }
 }
