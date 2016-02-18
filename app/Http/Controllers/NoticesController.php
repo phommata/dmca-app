@@ -92,7 +92,8 @@ class NoticesController extends Controller
         // persist it with this data.
 
         // And then fire off the email.
-
+//        \Mail::send();
+        \Mail::queue();
 
         $this->createNotice($request);
 //        Auth::user()->notices()->create(array); // Works the same
@@ -108,10 +109,8 @@ class NoticesController extends Controller
      */
     protected function createNotice(Request $request)
     {
-        $data = session()->get('dmca');
+        $notice = session()->get('dmca') + ['template' => $request->input('template')];
 
-        $notice = Notice::open($data)->useTemplate($request->input('template'));
-
-        Auth::user()->notices()->save($notice);
+        Auth::user()->notices()->create($notice);
     }
 }

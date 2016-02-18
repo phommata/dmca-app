@@ -20,27 +20,4 @@ class Notice extends Model
         'content_removed',
         'provider_id',
     ];
-
-    /**
-     * Open a new notice.
-     *
-     * @param array $attributes
-     * @return static
-     */
-    public static function open(array $attributes)
-    {
-        return new static($attributes); // new Notice(array)
-    }
-
-    /**
-     * Set the email template for the notice.
-     *
-     * @param string $template
-     */
-    public function useTemplate($template)
-    {
-        $this->template = $template;
-
-        return $this;
-    }
 }
