@@ -84,7 +84,7 @@ class NoticesController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, AppMailer $mailer)
+    public function store(Request $request)
     {
         // Form data is flashed. Get with session()->get('dmca')
         // Template is in request. Request::input('template')
@@ -92,12 +92,12 @@ class NoticesController extends Controller
         // persist it with this data.
 
         // And then fire off the email.
+        \Mail::queue();
+        event('DmcaWasCreated', $notice);
 
-        $notice = $this->createNotice($request);
+        $this->createNotice($request);
 //        Auth::user()->notices()->create(array); // Works the same
 
-        $mailer->sendDmcaNotice($notice);
-        
 //        return Notice::first();
         return redirect('notices');
     }
