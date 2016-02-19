@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PrepareNoticeRequest;
 use App\Notice;
+use Illuminate\Support\Facades\Mail;
 
 class NoticesController extends Controller
 {
@@ -91,12 +92,15 @@ class NoticesController extends Controller
         // So build up a Notice object (create table too)
         // persist it with this data.
 
-        // And then fire off the email.
-        \Mail::queue();
-        event('DmcaWasCreated', $notice);
-
-        $this->createNotice($request);
+        $notice = $this->createNotice($request);
 //        Auth::user()->notices()->create(array); // Works the same
+
+        // And then fire off the email.
+        Mail::raw('emails.dmca', compact('notice'), function($message) use ($notice) {
+            $message->from($notice->getOwnerEmail())
+                    ->to($notice->getRecipientEmail())
+                    ->subject('DMCA Notice');
+        });
 
 //        return Notice::first();
         return redirect('notices');
@@ -112,5 +116,7 @@ class NoticesController extends Controller
         $notice = session()->get('dmca') + ['template' => $request->input('template')];
 
         Auth::user()->notices()->create($notice);
+
+        return $notice;
     }
 }
