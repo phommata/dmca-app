@@ -96,7 +96,7 @@ class NoticesController extends Controller
 //        Auth::user()->notices()->create(array); // Works the same
 
         // And then fire off the email.
-        Mail::raw('emails.dmca', compact('notice'), function($message) use ($notice) {
+        Mail::queue('emails.dmca', compact('notice'), function($message) use ($notice) {
             $message->from($notice->getOwnerEmail())
                     ->to($notice->getRecipientEmail())
                     ->subject('DMCA Notice');
@@ -115,7 +115,7 @@ class NoticesController extends Controller
     {
         $notice = session()->get('dmca') + ['template' => $request->input('template')];
 
-        Auth::user()->notices()->create($notice);
+        $notice = Auth::user()->notices()->create($notice);
 
         return $notice;
     }

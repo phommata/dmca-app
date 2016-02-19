@@ -48,7 +48,7 @@ class Notice extends Model
      */
     public function getRecipientEmail()
     {
-        return $this->recipient()->copyright_email;
+        return $this->recipient->copyright_email;
     }
 
     /**
