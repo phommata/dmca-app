@@ -31,6 +31,6 @@ class User extends Authenticatable
      */
     public function notices()
     {
-        return $this->hasMany('App\Notice');
+        return $this->hasMany('App\Notice')->latest();
     }
 }
