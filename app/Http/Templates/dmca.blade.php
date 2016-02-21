@@ -13,5 +13,4 @@ Please send me at the address noted below a prompt response indicating the actio
 Sincerely,
 
 {{ $name }}
-
 {{ $email }}

@@ -116,8 +116,6 @@ class NoticesController extends Controller
 
         Notice::findOrFail($noticeId)
             ->update(['content_removed' => $isRemoved]);
-
-        return redirect()->back();
     }
 
     /**
