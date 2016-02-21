@@ -13,7 +13,7 @@
             <th>Content Removed:</th>
         </thead>
         <tbody>
-            @foreach ($notices->where('content_removed', 1, false) as $notice)
+            @foreach ($notices->where('content_removed', 0, false) as $notice)
                 <tr>
                     <td>{{ $notice->infringing_title }}</td>
                     <td>{!! link_to($notice->infringing_link) !!}</td>
@@ -31,6 +31,11 @@
             @endforeach
         </tbody>
     </table>
+
+    <h3>Archived Notices</h3>
+    @foreach ($notices->where('content_removed', 1, false) as $notice)
+        <li>{{ $notice->infringing_title }}</li>
+    @endforeach
 
     @unless(count($notices))
         <p class="text-center">You haven't sent any DMCA notices yet!</p>
