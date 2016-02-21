@@ -13,7 +13,7 @@
             <th>Content Removed:</th>
         </thead>
         <tbody>
-            @foreach ($notices->where('content_removed', 0, false) as $notice)
+            @foreach ($notices->where('content_removed', 1, false) as $notice)
                 <tr>
                     <td>{{ $notice->infringing_title }}</td>
                     <td>{!! link_to($notice->infringing_link) !!}</td>
