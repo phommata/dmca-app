@@ -26,6 +26,7 @@
     </style>
 </head>
 <body id="app-layout">
+    @include('flash::message')
     @include('partials.nav')
 
     <div class="container">
