@@ -32,7 +32,9 @@ class NoticesController extends Controller
      */
     public function index()
     {
-        return $this->user->notices;
+        $notices = $this->user->notices()->latest()->get();
+
+        return view('notices.index', compact('notices'));
     }
 
     /**
